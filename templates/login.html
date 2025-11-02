@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1{
+            color: #ffcc00;
+            margin-bottom: 40px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            background-color: #1f1f1f;
+            padding: 40px 50px;
+            border-radius: 18px;
+            width: 330px;
+            transition: box-shadow 0.3s;
+        }
+
+        form:hover{
+            box-shadow: 0 0 75px #ffcc00;
+        }
+
+        input[type="text"], input[type="password"]{
+            padding: 14px;
+            font-size: 17px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        input[type="submit"]{
+            padding: 14px;
+            font-size: 18px;
+            background-color: #ffcc00;
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover{
+            background-color: #e6b800;
+        }
+
+        .back-link{
+            margin-top: -5px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #1f1f1f;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin-bottom: -10px;
+        }
+
+        .back-link:hover{
+            background-color: #333333;
+        }
+
+        .msg{
+            margin-top: -5px;
+            color: #ff6666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Login</h1>
+
+    <form action="/login" method="POST">
+        <input type="text" placeholder="Username" required name="username">
+        <input type="password" placeholder="Password" required name="password">
+        <div class="msg">{{ msg }}</div>
+        <input type="submit" value="Login">
+        <a href="/" class="back-link">Back to Home</a>
+    </form>
+
+</body>
+</html>

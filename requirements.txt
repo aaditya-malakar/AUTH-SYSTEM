@@ -1,0 +1,3 @@
+flask==2.2.3     # Web framework for building the application
+folium==0.14.0   # For map rendering directly in Python
+geopy==2.3.0     # Optional, for distance calculations

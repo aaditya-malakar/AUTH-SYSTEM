@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <style>
+        body{
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
+        }
+
+        h1{
+            color: #ffcc00;
+            margin-bottom: 30px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #1f1f1f;
+            padding: 40px 50px; 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            width: 400px;        
+            max-width: 90%;      
+        }
+
+        form:hover{
+            box-shadow: 0 0 75px #ffcc00;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"]{
+            padding: 14px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background-color: #333333;
+            color: #ffffff;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]{
+            padding: 12px;
+            font-size: 18px;
+            background-color: #ffcc00;
+            color: #121212;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover{
+            background-color: #e6b800;
+        }
+
+        .back-link{
+            margin-top: -5px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #1f1f1f;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            text-align: center;
+            margin-bottom: -15px;
+        }
+
+        .back-link:hover{
+            background-color: #333333;
+        }
+
+        .msg{
+            margin-top: 15px;
+            color: #ff6666;
+            text-align: center;
+        }
+
+        .strength-bar{
+            height: 12px;
+            border-radius: 5px;
+            background-color: #555;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .strength{
+            height: 100%;
+            width: 0%;
+            background-color: red;
+            transition: width 0.3s, background-color 0.3s;
+        }
+
+        .strength-indicator{
+            text-align: right;
+            font-weight: bold;
+            margin-top: -10px;
+            margin-bottom: -10px;
+            color: #ff6666; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Register</h1>
+    <form action="/reg" method="POST">
+        <input type="text" placeholder="Full Name" required name="Full_Name">
+        <input type="text" placeholder="Username" required name="username">
+        <input type="email" name="mail" placeholder="Email" required>
+        <input type="password" placeholder="Password" required name="password">
+        <input type="password" placeholder="Confirm Password" required name="cpassword">
+        <div class="strength-bar">
+            <div id="strength" class="strength"></div>
+        </div>
+        <p id="strength-indicator" class="strength-indicator">Weak</p>
+        <div class="msg">{{ msg }}</div>
+        <input type="submit" value="Register">
+        <a href="/" class="back-link">Back to Home</a>
+    </form>
+    
+
+    <script>
+        const passwordInput = document.querySelector('input[name="password"]');
+        const strengthBar = document.getElementById('strength');
+        const strengthIndicator = document.getElementById('strength-indicator');
+
+        passwordInput.addEventListener('input', () => {
+            const strength = calculateStrength(passwordInput.value);
+            strengthBar.style.width = strength + '%';
+
+            if (strength < 40) {
+                strengthBar.style.backgroundColor = 'red';
+                strengthIndicator.textContent = 'Weak';
+            } else if (strength < 70) {
+                strengthBar.style.backgroundColor = 'orange';
+                strengthIndicator.textContent = 'Moderate';
+            } else {
+                strengthBar.style.backgroundColor = 'green';
+                strengthIndicator.textContent = 'Strong';
+            }
+        });
+
+        function calculateStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength += 30;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[a-z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[\W]/.test(password)) strength += 10;
+            return Math.min(strength, 100);
+        }
+    </script>
+</body>
+</html>
